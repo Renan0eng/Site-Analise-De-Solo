@@ -1,0 +1,107 @@
+body {
+    background-color: darkmagenta;
+    color: darkgoldenrod;
+    text-align: center;
+}
+nav {
+    display: flex;
+}
+
+#img-nav {
+    height: 370px;
+}
+section {
+    /* display: flex; */
+    text-align: center;
+    align-items: center;
+    
+}
+
+figure a {
+    color: black;
+    text-decoration: none;
+}
+#h1 {
+    padding-top: 200px;
+    padding-bottom: 200px;
+    
+}
+section table{
+    /* display: flexbox; */
+    margin-bottom: 1000px;
+    
+}
+article {
+    text-align: center;
+}
+article p{
+    margin: 30px;
+    margin-bottom: 200px;
+}
+    
+
+
+/* arvore */
+
+.tree * {
+list-style-type: none;
+}
+
+.tree li a {
+color: #222;
+text-decoration: none;
+
+}
+.tree li a:hover {
+color: rgb(34, 119, 0);
+text-decoration: none;
+
+}
+
+
+.tree ul {
+padding-left: 25px;
+}
+
+ul.tree, .tree li {
+padding-left: 0px;
+padding-top: 5px;
+}
+
+ul.tree, ul.tree ul {
+list-style: none;
+margin: 0;
+padding: 0;
+} 
+
+ul.tree ul {
+margin-left: 10px;
+}
+
+ul.tree li {
+margin: 0;
+margin: 0 9px;
+padding: 0 7px;
+border-left:1px solid rgb(100,100,100);
+
+}
+
+ul.tree li:last-child {
+border-left:none;
+}
+
+ul.tree li:before {
+position:relative;
+top:-0.3em;
+height:1em;
+width:12px;
+color:white;
+border-bottom:1px solid rgb(100,100,100);
+content:"";
+display:inline-block;
+left:-7px;
+}
+
+ul.tree li:last-child:before {
+border-left:1px solid rgb(100,100,100);   
+}
