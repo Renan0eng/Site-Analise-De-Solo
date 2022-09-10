@@ -1,4 +1,18 @@
 #include <ESP8266WiFi.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
+#define    ONE_WIRE_BUS     14
+
+OneWire oneWire(ONE_WIRE_BUS);        
+DallasTemperature sensors(&oneWire);
+DeviceAddress sensor1;
+
+float tempMin = 999;   //armazena temperatura mínima
+float tempMax = 0;     //armazena temperatura máxima
+
+void mostra_endereco_sensor(DeviceAddress deviceAddress);  //Função para mostrar endereço do sensor
+
 
 const char* ssid = "Renan";
 const char* password = "01112003";
@@ -15,8 +29,8 @@ String getURLRequest(String *requisicao);
 bool mainPageRequest(String *requisicao);
 
 const byte qtdePinosDigitais = 7;
-byte pinosDigitais[qtdePinosDigitais] = {2           , 4     , 5     , 12     , 13     , 14     , 15     };
-byte modoPinos[qtdePinosDigitais]     = {INPUT_PULLUP, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT};
+byte pinosDigitais[qtdePinosDigitais] = {2           , 4     , 5     , 12     , 13     , 15     };
+byte modoPinos[qtdePinosDigitais]     = {INPUT_PULLUP, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT};
 
 const byte qtdePinosAnalogicos = 1;
 byte pinosAnalogicos[qtdePinosAnalogicos] = {A0};
@@ -24,6 +38,24 @@ byte pinosAnalogicos[qtdePinosAnalogicos] = {A0};
 void setup()
 {         
     Serial.begin(115200);
+
+    sensors.begin();
+
+    // Localiza e mostra enderecos dos sensores
+  Serial.println("Localizando sensores DS18B20...");
+  Serial.print("Foram encontrados ");
+  Serial.print(sensors.getDeviceCount(), DEC);
+  Serial.println(" sensores.");
+  
+  if (!sensors.getAddress(sensor1, 0)) 
+     Serial.println("Sensores nao encontrados !"); 
+     
+  // Mostra o endereco do sensor encontrado no barramento
+  Serial.print("Endereco sensor: ");
+  mostra_endereco_sensor(sensor1);
+  Serial.println();
+  Serial.println();
+ 
 
     //Conexão na rede WiFi
     Serial.println();
@@ -54,6 +86,24 @@ void setup()
 
 void loop()
 {
+  sensors.requestTemperatures();
+  float tempC = sensors.getTempC(sensor1);
+  
+  // Atualiza temperaturas minima e maxima
+  if (tempC < tempMin)
+  {
+    tempMin = tempC;
+  }
+  if (tempC > tempMax)
+  {
+    tempMax = tempC;
+  }
+  Serial.print("Temp C: ");
+  Serial.print(tempC);
+  Serial.print(" Min : ");
+  Serial.print(tempMin);
+  Serial.print(" Max : ");
+  Serial.println(tempMax);
 
     WiFiClient  client = server.available();
 
@@ -97,34 +147,34 @@ void loop()
                         client.println("if (this.status == 200) {");
                         client.println("if (this.responseText != null) {");
 
-                        for (int nL=0; nL < qtdePinosDigitais; nL++) {                                                    //<-------NOVO
+                                                                       //<-------NOVO
                             client.print("posIni = this.responseText.indexOf(\"PD");
-                            client.print(pinosDigitais[nL]);
+                            client.print(tempC);
                             client.println("\");");
                             client.println("if ( posIni > -1) {");
                             client.println("valPosIni = this.responseText.indexOf(\"#\", posIni) + 1;");
                             client.println("valPosFim = this.responseText.indexOf(\"|\", posIni);");
                             client.print("document.getElementById(\"pino");
-                            client.print(pinosDigitais[nL]);
+                            client.print(tempC);
                             client.println("\").checked = Number(this.responseText.substring(valPosIni, valPosFim));");
                             client.println("}");
-                        }
+                        
 
-                        for (int nL=0; nL < qtdePinosAnalogicos; nL++) {                                                    //<-------NOVO
+                                                                            //<-------NOVO
                             
                             client.print("posIni = this.responseText.indexOf(\"PA");
-                            client.print(pinosAnalogicos[nL]);
+                            client.print(tempC);
                             client.println("\");"); 
                             client.println("if ( posIni > -1) {");
                             client.println("valPosIni = this.responseText.indexOf(\"#\", posIni) + 1;");
                             client.println("valPosFim = this.responseText.indexOf(\"|\", posIni);");
                             client.print("document.getElementById(\"pino");
-                            client.print(pinosAnalogicos[nL]);
+                            client.print(tempC);
                             client.print("\").innerHTML = \"Porta ");
-                            client.print(pinosAnalogicos[nL]);
+                            client.print(tempC);
                             client.print(" - Valor: \" + this.responseText.substring(valPosIni, valPosFim);");
                             client.println("}");
-                        }
+                        
                           
                         client.println("}}}}");
                         client.println("request.open(\"GET\", \"solicitacao_via_ajax\" + nocache, true);");
@@ -136,23 +186,23 @@ void loop()
                         client.println("</head>");
 
                         client.println("<body onload=\"LeDadosDoArduino()\">");                      //<------ALTERADO                    
-                        client.println("<h1>PORTAS EM FUN&Ccedil;&Atilde;O ANAL&Oacute;GICA</h1>");
+                        client.println("<h1>Temperatura:</h1>");
 
-                        for (int nL=0; nL < qtdePinosAnalogicos; nL++) {
+                        
 
                             client.print("<div id=\"pino");                         //<----- NOVO
-                            client.print(pinosAnalogicos[nL]);
+                            client.print(tempC);
                             client.print("\">"); 
                                                          
                             client.print("Porta ");
-                            client.print(pinosAnalogicos[nL]);
+                            client.print(tempC);
                             client.println(" - Valor: ");
                                
-                            client.print( analogRead(pinosAnalogicos[nL]) );
+                            client.print(tempC);
                             client.println("</div>");                               //<----- NOVO
                                
                             client.println("<br/>");                             
-                        }
+                        
                         
                         client.println("<br/>");                        
                         client.println("<h1>PORTAS EM FUN&Ccedil;&Atilde;O DIGITAL</h1>");
@@ -327,4 +377,13 @@ bool retorno = false;
   }  
 
   return retorno;
+}
+void mostra_endereco_sensor(DeviceAddress deviceAddress)
+{
+  for (uint8_t i = 0; i < 8; i++)
+  {
+    // Adiciona zeros se necessário
+    if (deviceAddress[i] < 16) Serial.print("0");
+    Serial.print(deviceAddress[i], HEX);
+  }
 }
