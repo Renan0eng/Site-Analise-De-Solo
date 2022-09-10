@@ -1,7 +1,10 @@
 body {
-    background-color: rgb(199, 8, 199);
-    color: darkgoldenrod;
+    background-color: #49001e;
+    color:#ff5c29;
     text-align: center;
+}
+header{
+    color: rgb(131, 97, 12);
 }
 p {
     color: darkgray;
