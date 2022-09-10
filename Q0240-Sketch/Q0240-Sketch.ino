@@ -2,7 +2,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-#define    ONE_WIRE_BUS     14
+#define    ONE_WIRE_BUS     5
 
 OneWire oneWire(ONE_WIRE_BUS);        
 DallasTemperature sensors(&oneWire);
@@ -28,9 +28,9 @@ void lePortaAnalogica(byte porta, byte posicao, WiFiClient cl);
 String getURLRequest(String *requisicao);
 bool mainPageRequest(String *requisicao);
 
-const byte qtdePinosDigitais = 7;
-byte pinosDigitais[qtdePinosDigitais] = {2           , 4     , 5     , 12     , 13     , 15     };
-byte modoPinos[qtdePinosDigitais]     = {INPUT_PULLUP, OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT};
+const byte qtdePinosDigitais = 2;
+byte pinosDigitais[qtdePinosDigitais] = {2, 4};
+byte modoPinos[qtdePinosDigitais]     = {OUTPUT, OUTPUT};
 
 const byte qtdePinosAnalogicos = 1;
 byte pinosAnalogicos[qtdePinosAnalogicos] = {A0};
