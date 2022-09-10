@@ -1,3 +1,18 @@
+#include <Adafruit_GFX.h>    
+#include <Adafruit_ST7735.h> 
+#include <SPI.h>
+
+
+
+#define TFT_DC 12 //A0
+#define TFT_CS 13 //CS
+#define TFT_MOSI 14 //SDA
+#define TFT_CLK 15 //SCK
+#define TFT_RST 0  
+#define TFT_MISO 0 
+
+Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_MOSI, TFT_CLK, TFT_RST);
+
 #include <ESP8266WiFi.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
@@ -37,6 +52,14 @@ byte pinosAnalogicos[qtdePinosAnalogicos] = {A0};
 
 void setup()
 {         
+
+   tft.initR(INITR_BLACKTAB); 
+
+   tft.setTextWrap(false);
+   tft.fillScreen(0x408E2F);
+   tft.setTextColor(0x5AEB);
+
+
     Serial.begin(115200);
 
     sensors.begin();
@@ -104,6 +127,8 @@ void loop()
   Serial.print(tempMin);
   Serial.print(" Max : ");
   Serial.println(tempMax);
+
+
 
     WiFiClient  client = server.available();
 
@@ -387,3 +412,16 @@ void mostra_endereco_sensor(DeviceAddress deviceAddress)
     Serial.print(deviceAddress[i], HEX);
   }
 }
+void Display (){
+    tft.setTextSize(3);
+  tft.setCursor(5, 10);
+  tft.println("_ Temp _");
+  tft.setTextSize(1);
+  tft.setCursor(12, 40);
+  tft.println("-- Temperatura --");
+  tft.setTextSize(2);
+  tft.setCursor(20, 120);
+  tft.fillRect(4  2,50, 100 ,100,0x408E2F);
+  tft.print("C:");
+  tft.print(tempC);
+  }
