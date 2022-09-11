@@ -56,7 +56,7 @@ void setup()
    tft.initR(INITR_BLACKTAB); 
 
    tft.setTextWrap(false);
-   tft.fillScreen(0x408E2F);
+   tft.fillScreen(0x1C5927);
    tft.setTextColor(0x5AEB);
 
 
@@ -109,28 +109,28 @@ void setup()
 
 void loop()
 {
+  
+  WiFiClient  client = server.available();
+    
   sensors.requestTemperatures();
   float tempC = sensors.getTempC(sensor1);
   
-  // Atualiza temperaturas minima e maxima
-  if (tempC < tempMin)
-  {
-    tempMin = tempC;
+  if(digitalRead(4) == HIGH){
+  tft.setTextSize(3);
+  tft.setCursor(25, 10);
+  tft.println("Temp");
+  tft.setTextSize(1);
+  tft.setCursor(12, 70);
+  tft.println("-- Temperatura --");
+  tft.setTextSize(2);
+  tft.setCursor(20, 120);
+  tft.fillRect(42,50, 100 ,100,0x1C5927);
+  tft.print("C:");
+  tft.print(tempC);
   }
-  if (tempC > tempMax)
-  {
-    tempMax = tempC;
-  }
-  Serial.print("Temp C: ");
-  Serial.print(tempC);
-  Serial.print(" Min : ");
-  Serial.print(tempMin);
-  Serial.print(" Max : ");
-  Serial.println(tempMax);
 
 
 
-    WiFiClient  client = server.available();
 
     if (client) { 
         boolean currentLineIsBlank = true;
@@ -172,34 +172,34 @@ void loop()
                         client.println("if (this.status == 200) {");
                         client.println("if (this.responseText != null) {");
 
-                                                                       //<-------NOVO
+                        for (int nL=0; nL < qtdePinosDigitais; nL++) {                                                    //<-------NOVO
                             client.print("posIni = this.responseText.indexOf(\"PD");
-                            client.print(tempC);
+                            client.print(pinosDigitais[nL]);
                             client.println("\");");
                             client.println("if ( posIni > -1) {");
                             client.println("valPosIni = this.responseText.indexOf(\"#\", posIni) + 1;");
                             client.println("valPosFim = this.responseText.indexOf(\"|\", posIni);");
                             client.print("document.getElementById(\"pino");
-                            client.print(tempC);
+                            client.print(pinosDigitais[nL]);
                             client.println("\").checked = Number(this.responseText.substring(valPosIni, valPosFim));");
                             client.println("}");
-                        
+                        }
 
-                                                                            //<-------NOVO
+                        for (int nL=0; nL < qtdePinosAnalogicos; nL++) {                                                    //<-------NOVO
                             
                             client.print("posIni = this.responseText.indexOf(\"PA");
-                            client.print(tempC);
+                            client.print(pinosAnalogicos[nL]);
                             client.println("\");"); 
                             client.println("if ( posIni > -1) {");
                             client.println("valPosIni = this.responseText.indexOf(\"#\", posIni) + 1;");
                             client.println("valPosFim = this.responseText.indexOf(\"|\", posIni);");
                             client.print("document.getElementById(\"pino");
-                            client.print(tempC);
+                            client.print(pinosAnalogicos[nL]);
                             client.print("\").innerHTML = \"Porta ");
-                            client.print(tempC);
-                            client.print(" - Valor: \" + this.responseText.substring(valPosIni, valPosFim);");
+                            client.print(pinosAnalogicos[nL]);
+                            client.print(" - Valor: \" + this.responseText.substring(tempC);");
                             client.println("}");
-                        
+                        }
                           
                         client.println("}}}}");
                         client.println("request.open(\"GET\", \"solicitacao_via_ajax\" + nocache, true);");
@@ -211,23 +211,23 @@ void loop()
                         client.println("</head>");
 
                         client.println("<body onload=\"LeDadosDoArduino()\">");                      //<------ALTERADO                    
-                        client.println("<h1>Temperatura:</h1>");
+                        client.println("<h1>PORTAS EM FUN&Ccedil;&Atilde;O ANAL&Oacute;GICA</h1>");
 
-                        
+                        for (int nL=0; nL < qtdePinosAnalogicos; nL++) {
 
                             client.print("<div id=\"pino");                         //<----- NOVO
-                            client.print(tempC);
+                            client.print(pinosAnalogicos[nL]);
                             client.print("\">"); 
                                                          
                             client.print("Porta ");
-                            client.print(tempC);
+                            client.print(pinosAnalogicos[nL]);
                             client.println(" - Valor: ");
                                
-                            client.print(tempC);
+                            client.print( analogRead(pinosAnalogicos[nL]) );
                             client.println("</div>");                               //<----- NOVO
                                
                             client.println("<br/>");                             
-                        
+                        }
                         
                         client.println("<br/>");                        
                         client.println("<h1>PORTAS EM FUN&Ccedil;&Atilde;O DIGITAL</h1>");
@@ -412,16 +412,6 @@ void mostra_endereco_sensor(DeviceAddress deviceAddress)
     Serial.print(deviceAddress[i], HEX);
   }
 }
-void Display (){
-    tft.setTextSize(3);
-  tft.setCursor(5, 10);
-  tft.println("_ Temp _");
-  tft.setTextSize(1);
-  tft.setCursor(12, 40);
-  tft.println("-- Temperatura --");
-  tft.setTextSize(2);
-  tft.setCursor(20, 120);
-  tft.fillRect(4  2,50, 100 ,100,0x408E2F);
-  tft.print("C:");
-  tft.print(tempC);
-  }
+
+    
+  
