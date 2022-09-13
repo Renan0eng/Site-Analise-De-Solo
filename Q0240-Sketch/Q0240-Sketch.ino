@@ -119,12 +119,12 @@ void loop()
     
   sensors.requestTemperatures();
   float tempC = sensors.getTempC(sensor1);
+  
  if(digitalRead(4) == LOW){
    tft.setTextSize(1);
    tft.setCursor(12, 70);
    tft.print("IP: ");
    tft.println(WiFi.localIP());
-   delay(5000);
    tft.fillScreen(0x408E2F);
  }
   
@@ -162,14 +162,12 @@ void loop()
                                                  
                         client.println("HTTP/1.1 200 OK");
                         client.println("Content-Type: text/html");
-                        client.println("Connection: keep-alive");              //<------ ATENCAO
+                        client.println("Connection: keep-alive");              
                         client.println();
                         
                         //Conteudo da Página HTML
                         client.println("<!DOCTYPE html>");
                         client.println("<html>");
-
-                        
                         client.println("<head>");
                         client.println("<meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Exercicio HTML</title>");
                         client.println("<link rel=\"stylesheet\" href=\"https://renan0eng.github.io/Site-Analise-De-Solo/style.css\">");
@@ -180,14 +178,14 @@ void loop()
                         client.println("nocache = \"&nocache=\" + Math.random() * 1000000;");
                         client.println("var request = new XMLHttpRequest();");
                         client.println("var posIni;");
+                        client.println("var tempC;");
                         client.println("var valPosIni;");
                         client.println("var valPosFim;");
                         client.println("request.onreadystatechange = function() {");
                         client.println("if (this.readyState == 4) {");
                         client.println("if (this.status == 200) {");
                         client.println("if (this.responseText != null) {");
-
-                        for (int nL=0; nL < qtdePinosDigitais; nL++) {                                                    //<-------NOVO
+                        for (int nL=0; nL < qtdePinosDigitais; nL++) {                                                    
                             client.print("posIni = this.responseText.indexOf(\"PD");
                             client.print(pinosDigitais[nL]);
                             client.println("\");");
@@ -200,20 +198,20 @@ void loop()
                             client.println("}");
                         }
 
-                        for (int nL=0; nL < qtdePinosAnalogicos; nL++) {                                                    //<-------NOVO
+                        for (int nL=0; nL < qtdePinosAnalogicos; nL++) {                                                    
                             
                             client.print("posIni = this.responseText.indexOf(\"PA");
-                            client.print(pinosAnalogicos[nL]);
+                            client.print("Temperatura");
                             client.println("\");"); 
                             client.println("if ( posIni > -1) {");
                             client.println("valPosIni = this.responseText.indexOf(\"#\", posIni) + 1;");
                             client.println("valPosFim = this.responseText.indexOf(\"|\", posIni);");
                             client.print("document.getElementById(\"pino");
-                            client.print(pinosAnalogicos[nL]);
+                            client.print("Temperatura");
                             client.print("\").innerHTML = \"Porta ");
 
                             client.print("Temperatura");
-                            client.print(" - Valor: \" + this.responseText.substring(valPosIni, valPosFim);");
+                            client.print(" - Valor: C  \" + this.responseText.substring(valPosIni, valPosFim);");
 
                             client.println("}");
                         }
@@ -228,29 +226,27 @@ void loop()
                         client.println("</head>");
 
                         client.println("<body onload=\"LeDadosDoArduino()\">"); 
-                        client.println("<div id=\"foto\"><figure><img src=\"img/Renan.jpeg\"><figcaption><h1>Renan Nardi</h1></figcaption></figure><ul><li>(44)  991571020</li><li><a href=\"https://github.com/Renan0eng\" target=\"_blank\">GitHub</a></li><li><a href=\"https://www.instagram.com/renan_nardii/\"target=\"_blank\">Intagran</a></li></ul></div>");                     //<------ALTERADO    
+                        client.println("<div id=\"foto\"><figure><img src=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/Renan.jpeg\"><figcaption><h1>Renan Nardi</h1></figcaption></figure><ul><li>(44)  991571020</li><li><a href=\"https://github.com/Renan0eng\" target=\"_blank\">GitHub</a></li><li><a href=\"https://www.instagram.com/renan_nardii/\"target=\"_blank\">Intagran</a></li></ul></div>");                     //<------ALTERADO    
 
                         client.println("<div id=\"DD\">");                
                         client.println("<h1>PORTAS EM FUN&Ccedil;&Atilde;O ANAL&Oacute;GICA</h1>");
 
                         for (int nL=0; nL < qtdePinosAnalogicos; nL++) {
 
-                            client.print("<div id=\"pino");                         //<----- NOVO
-                            client.print(pinosAnalogicos[nL]);
+                            client.print("<div id=\"pino");                        
+                            client.print("Temperatura");
                             client.print("\">"); 
                                                          
                             client.print("Porta ");
 
                             client.print("Temperatura");
-                            client.println(" - Valor:");
+                            client.println(" - Valor: C ");
                                
-                            client.print( analogRead(pinosAnalogicos[nL]) );
-                            client.println("</div>");                               //<----- NOVO
-                               
-                            client.println("<br/>");                             
+                            client.print(tempC);
+                            client.println("</div>");                                                           
                         }
                         
-                        client.println("<br/>");                        
+                                                
                         client.println("<h1>PORTAS EM FUN&Ccedil;&Atilde;O DIGITAL</h1>");
                         client.println("<form method=\"get\">");
 
@@ -268,18 +264,23 @@ void loop()
                         client.println("</html>");
 
                     
-                    } else if (HTTP_req.indexOf("solicitacao_via_ajax") > -1) {     //<----- NOVO
+                    } else if (HTTP_req.indexOf("solicitacao_via_ajax") > -1) {     
 
                         Serial.println(HTTP_req);
 
                         client.println("HTTP/1.1 200 OK");
                         client.println("Content-Type: text/html");
                         client.println("Connection: keep-alive");      
-                        client.println();                      
+                        client.println();
 
-                        for (int nL=0; nL < qtdePinosAnalogicos; nL++) {
-                            lePortaAnalogica(pinosAnalogicos[nL], nL, client);                            
-                        }
+                        client.print("PA");
+                        client.print("Temperatura");
+                        client.print("#");
+                        client.print(tempC);
+                        client.println("|");
+                        
+                        
+
                         for (int nL=0; nL < qtdePinosDigitais; nL++) {
                             lePortaDigital(pinosDigitais[nL], nL, client);
                         }
