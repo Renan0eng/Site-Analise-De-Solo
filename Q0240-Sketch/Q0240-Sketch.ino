@@ -53,17 +53,6 @@ byte pinosAnalogicos[qtdePinosAnalogicos] = {A0};
 void setup()
 {         
 
-<<<<<<< HEAD
-  
-=======
-   tft.initR(INITR_BLACKTAB); 
-
-   tft.setTextWrap(false);
-   tft.fillScreen(0x1C5927);
-   tft.setTextColor(0x5AEB);
->>>>>>> 6ff981dfb83e74c9645afa9b6d1661a27b50c6b4
-
-
     Serial.begin(115200);
 
     sensors.begin();
@@ -139,36 +128,24 @@ void loop()
    tft.fillScreen(0x408E2F);
  }
   
-<<<<<<< HEAD
  if(digitalRead(4) == HIGH){
   tft.setTextSize(3);
   tft.setCursor(30, 10);
   tft.println("TEMP");
-=======
-  if(digitalRead(4) == HIGH){
-  tft.setTextSize(3);
-  tft.setCursor(25, 10);
-  tft.println("Temp");
->>>>>>> 6ff981dfb83e74c9645afa9b6d1661a27b50c6b4
+
+ 
   tft.setTextSize(1);
   tft.setCursor(12, 70);
   tft.println("-- Temperatura --");
   tft.setTextSize(2);
   tft.setCursor(20, 120);
-<<<<<<< HEAD
+
   tft.fillRect(42,120, 100 ,20,0x408E2F);
   tft.print("C:");
   tft.print(tempC);
   }
-=======
-  tft.fillRect(42,50, 100 ,100,0x1C5927);
-  tft.print("C:");
-  tft.print(tempC);
-  }
 
-
->>>>>>> 6ff981dfb83e74c9645afa9b6d1661a27b50c6b4
-
+ 
 
     if (client) { 
         boolean currentLineIsBlank = true;
@@ -234,13 +211,10 @@ void loop()
                             client.print("document.getElementById(\"pino");
                             client.print(pinosAnalogicos[nL]);
                             client.print("\").innerHTML = \"Porta ");
-<<<<<<< HEAD
+
                             client.print("Temperatura");
                             client.print(" - Valor: \" + this.responseText.substring(valPosIni, valPosFim);");
-=======
-                            client.print(pinosAnalogicos[nL]);
-                            client.print(" - Valor: \" + this.responseText.substring(tempC);");
->>>>>>> 6ff981dfb83e74c9645afa9b6d1661a27b50c6b4
+
                             client.println("}");
                         }
                           
@@ -253,7 +227,10 @@ void loop()
                         
                         client.println("</head>");
 
-                        client.println("<body onload=\"LeDadosDoArduino()\">");                      //<------ALTERADO                    
+                        client.println("<body onload=\"LeDadosDoArduino()\">"); 
+                        client.println("<div id=\"foto\"><figure><img src=\"img/Renan.jpeg\"><figcaption><h1>Renan Nardi</h1></figcaption></figure><ul><li>(44)  991571020</li><li><a href=\"https://github.com/Renan0eng\" target=\"_blank\">GitHub</a></li><li><a href=\"https://www.instagram.com/renan_nardii/\"target=\"_blank\">Intagran</a></li></ul></div>");                     //<------ALTERADO    
+
+                        client.println("<div id=\"DD\">");                
                         client.println("<h1>PORTAS EM FUN&Ccedil;&Atilde;O ANAL&Oacute;GICA</h1>");
 
                         for (int nL=0; nL < qtdePinosAnalogicos; nL++) {
@@ -263,13 +240,9 @@ void loop()
                             client.print("\">"); 
                                                          
                             client.print("Porta ");
-<<<<<<< HEAD
+
                             client.print("Temperatura");
                             client.println(" - Valor:");
-=======
-                            client.print(pinosAnalogicos[nL]);
-                            client.println(" - Valor: ");
->>>>>>> 6ff981dfb83e74c9645afa9b6d1661a27b50c6b4
                                
                             client.print( analogRead(pinosAnalogicos[nL]) );
                             client.println("</div>");                               //<----- NOVO
@@ -289,7 +262,7 @@ void loop()
                         client.println("<br/>");
                         client.println("<button type=\"submit\">Envia para o ESP8266</button>");
                         client.println("</form>");                      
-                        
+                        client.println("</div>");
                         client.println("</body>");
                         
                         client.println("</html>");
@@ -460,9 +433,3 @@ void mostra_endereco_sensor(DeviceAddress deviceAddress)
     Serial.print(deviceAddress[i], HEX);
   }
 }
-<<<<<<< HEAD
-=======
-
-    
-  
->>>>>>> 6ff981dfb83e74c9645afa9b6d1661a27b50c6b4
