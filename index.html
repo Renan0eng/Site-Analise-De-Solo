@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,12 +9,36 @@
     <title>Site-Analise-De-Solo</title>
     <link rel="script" href="script.js">
 </head>
-<body>
-    <header>
-        <h1>Site-Analise-De-SoloL</h1>
-    </header>
-    <section>
-        <h2>Temperatura</h2>
-    </section>
-</body>
+<body onload="LeDadosDoArduino()">
+    <div id="foto">
+        <figure>
+            <img src="img/Renan.jpeg" alt="">
+            <figcaption><h1>Renan Nardi</h1></figcaption>
+        </figure>
+        <ul>
+            <li>(44) 991571020</li>
+            <li><a href="https://github.com/Renan0eng">GitHub</a></li>
+            <li><a href="https://www.instagram.com/renan_nardii/">Intagran</a></li>
+
+        </ul>
+    </div>
+    <div id="DD"> 
+        <h1>Temperatura:</h1>
+        <div id="pino25.13">
+            Porta Temperatura - Valor:
+            25.13
+        </div>
+        <br>
+        <br>
+        <h1>PORTAS EM FUNÇÃO DIGITAL</h1>
+        <form method="get">
+            <input type="checkbox" name="P2" value="2" id="pino2">Porta 2
+            <br>
+            <input type="checkbox" name="P4" value="4" id="pino4">Porta 4
+            <br>
+            <br>
+            <button type="submit">Envia para o ESP8266</button>
+        </form>
+    </div>
+    </body>
 </html>

@@ -29,8 +29,8 @@ float tempMax = 0;     //armazena temperatura máxima
 void mostra_endereco_sensor(DeviceAddress deviceAddress);  //Função para mostrar endereço do sensor
 
 
-const char* ssid = "Renan";
-const char* password = "01112003";
+const char* ssid = "POCO";
+const char* password = "12345678";
 
 WiFiServer server(80); //Shield irá receber as requisições das páginas (o padrão WEB é a porta 80)
 
@@ -53,11 +53,7 @@ byte pinosAnalogicos[qtdePinosAnalogicos] = {A0};
 void setup()
 {         
 
-   tft.initR(INITR_BLACKTAB); 
-
-   tft.setTextWrap(false);
-   tft.fillScreen(0x408E2F);
-   tft.setTextColor(0x5AEB);
+  
 
 
     Serial.begin(115200);
@@ -105,30 +101,46 @@ void setup()
     for (int nP=0; nP < qtdePinosDigitais; nP++) {
         pinMode(pinosDigitais[nP], modoPinos[nP]);
     }
+     tft.initR(INITR_BLACKTAB); 
+
+   tft.setTextWrap(false);
+   tft.fillScreen(0x408E2F);
+   tft.setTextColor(0x5AEB);
+
+   tft.setTextSize(1);
+   tft.setCursor(12, 70);
+   tft.print("IP: ");
+   tft.println(WiFi.localIP());
+   delay(5000);
+   tft.fillScreen(0x408E2F);
 }
 
 void loop()
 {
   sensors.requestTemperatures();
   float tempC = sensors.getTempC(sensor1);
+ if(digitalRead(4) == LOW){
+   tft.setTextSize(1);
+   tft.setCursor(12, 70);
+   tft.print("IP: ");
+   tft.println(WiFi.localIP());
+   delay(5000);
+   tft.fillScreen(0x408E2F);
+ }
   
-  // Atualiza temperaturas minima e maxima
-  if (tempC < tempMin)
-  {
-    tempMin = tempC;
+ if(digitalRead(4) == HIGH){
+  tft.setTextSize(3);
+  tft.setCursor(30, 10);
+  tft.println("TEMP");
+  tft.setTextSize(1);
+  tft.setCursor(12, 70);
+  tft.println("-- Temperatura --");
+  tft.setTextSize(2);
+  tft.setCursor(20, 120);
+  tft.fillRect(42,120, 100 ,20,0x408E2F);
+  tft.print("C:");
+  tft.print(tempC);
   }
-  if (tempC > tempMax)
-  {
-    tempMax = tempC;
-  }
-  Serial.print("Temp C: ");
-  Serial.print(tempC);
-  Serial.print(" Min : ");
-  Serial.print(tempMin);
-  Serial.print(" Max : ");
-  Serial.println(tempMax);
-
-
 
     WiFiClient  client = server.available();
 
@@ -196,7 +208,7 @@ void loop()
                             client.print("document.getElementById(\"pino");
                             client.print(tempC);
                             client.print("\").innerHTML = \"Porta ");
-                            client.print(tempC);
+                            client.print("Temperatura");
                             client.print(" - Valor: \" + this.responseText.substring(valPosIni, valPosFim);");
                             client.println("}");
                         
@@ -220,8 +232,8 @@ void loop()
                             client.print("\">"); 
                                                          
                             client.print("Porta ");
-                            client.print(tempC);
-                            client.println(" - Valor: ");
+                            client.print("Temperatura");
+                            client.println(" - Valor:");
                                
                             client.print(tempC);
                             client.println("</div>");                               //<----- NOVO
@@ -412,16 +424,3 @@ void mostra_endereco_sensor(DeviceAddress deviceAddress)
     Serial.print(deviceAddress[i], HEX);
   }
 }
-void Display (){
-    tft.setTextSize(3);
-  tft.setCursor(5, 10);
-  tft.println("_ Temp _");
-  tft.setTextSize(1);
-  tft.setCursor(12, 40);
-  tft.println("-- Temperatura --");
-  tft.setTextSize(2);
-  tft.setCursor(20, 120);
-  tft.fillRect(4  2,50, 100 ,100,0x408E2F);
-  tft.print("C:");
-  tft.print(tempC);
-  }

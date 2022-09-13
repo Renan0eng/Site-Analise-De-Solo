@@ -2,10 +2,66 @@ body {
     background-color: #49001e;
     color:#ff5c29;
     text-align: center;
+    display: flex;
+    text-decoration: none;
 }
 header{
     color: rgb(131, 97, 12);
 }
 p {
     color: darkgray;
+}
+#DD{
+    background-color: #440457;
+    padding-bottom: 10px;
+	border-radius: 10px;
+    
+    width: 60%;
+    margin-top: 30px;
+    margin-right: 5%; 
+    margin-left: 10px;
+    
+}
+#DD h1 {
+    padding-top: 25px;
+}
+figure{
+    
+    border-radius: 100%;
+    background-color: black;
+    display: block;
+    width: 200px;
+    height: 200px;
+}
+figure img{
+    
+    border-radius: 100%;
+    width: 180px;
+    height: 180px;
+    margin: 10px;
+
+}
+#foto{
+    background-color: #440457;
+    padding-bottom: 10px;
+	border-radius: 10px;
+    
+    width: 300px;
+    margin-top: 30px;
+    margin-right: 10px; 
+    margin-left: 5%;
+}
+ul{
+    padding-top: 70px;
+}
+li{
+    display: flex;
+    padding-top: 10px;
+}
+a{
+    color: #ff5c29;
+    text-decoration: none;
+}
+a:hover{
+    color: #440457;
 }
