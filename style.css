@@ -24,6 +24,7 @@ p {
 }
 #DD h1 {
     padding-top: 25px;
+    padding-bottom: 25px;
 }
 figure{
     margin-top: 40px;
@@ -73,7 +74,4 @@ button {
 }
 #checkbox i {
     background-color: antiquewhite;
-}
-#DD h1{
-    padding-top: 0px;
 }
