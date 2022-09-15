@@ -1,15 +1,15 @@
+*{
+    padding: 0px;
+    border: 0px;
+}
 body {
+    padding: 0px;
+    border: 0px;
     background-color: wheat;
     color:#ff5c29;
     text-align: center;
     display: flex;
     text-decoration: none;
-}
-header{
-    color: rgb(131, 97, 12);
-}
-p {
-    color: darkgray;
 }
 #DD{
     background-color: #49001e;
@@ -25,7 +25,7 @@ p {
     padding-top: 25px;
     padding-bottom: 25px;
 }
-figure{
+#foto figure{
     margin-top: 40px;
     border-radius: 100%;
     background-color: black;
@@ -33,7 +33,7 @@ figure{
     width: 200px;
     height: 200px;
 }
-figure img{
+#foto figure img{
     border-radius: 100%;
     width: 180px;
     height: 180px;
@@ -48,12 +48,13 @@ figure img{
     margin-right: 10px; 
     margin-left: 50px;
 }
-ul{
+#foto ul{
     padding-top: 70px;
 }
-li{
+#foto li{
     display: flex;
     padding-top: 10px;
+    padding-left: 30px;
 }
 a{
     color: #ff5c29;
@@ -66,4 +67,45 @@ button {
     background-color: antiquewhite;
     height: 50px;
     border-radius: 10px;
+}
+label img{
+    width: 30px;
+    height: 30px;
+}
+#chec {
+    display:none ;
+}
+nav{
+    display: block;
+    padding-left: 0px;
+    background-color: #49001e77;
+    width: 300px;
+    height: 100%;
+    left: -350px;
+    position: absolute;
+}
+#chec:checked ~ nav{
+    transform: translateX(350px);
+}
+nav ul{
+    text-align: start;
+    padding-top: 40px;
+    margin: 0px;
+}
+nav a {
+    background-color: rgb(131, 97, 12);
+    display: block;
+    padding: 20px 5px;
+}
+#DNav{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 100%;
+    position: absolute;
+}
+label{
+    background-color: black;
+    position: absolute;
+    z-index: 1;
 }

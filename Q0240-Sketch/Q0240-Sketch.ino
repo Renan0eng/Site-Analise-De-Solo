@@ -126,9 +126,7 @@ void loop()
    tft.print("IP: ");
    tft.println(WiFi.localIP());
    tft.fillScreen(0x408E2F);
- }
-  
- if(digitalRead(4) == HIGH){
+ }else if(digitalRead(4) == HIGH){
   tft.setTextSize(3);
   tft.setCursor(30, 10);
   tft.println("TEMP");
@@ -209,10 +207,8 @@ void loop()
                             client.print("document.getElementById(\"pino");
                             client.print("Temperatura");
                             client.print("\").innerHTML = \"Porta ");
-
                             client.print("Temperatura");
                             client.print(" - Valor: C  \" + this.responseText.substring(valPosIni, valPosFim);");
-
                             client.println("}");
                         }
                           
@@ -222,31 +218,19 @@ void loop()
                         client.println("setTimeout('LeDadosDoArduino()', 1000);");
                         client.println("}");
                         client.println("</script>");
-                        
                         client.println("</head>");
-
                         client.println("<body onload=\"LeDadosDoArduino()\">"); 
-                        client.println("<div id=\"foto\"><figure><img src=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/Renan.jpeg\"><figcaption><h1>Renan Nardi</h1></figcaption></figure><ul><li>(44)  991571020</li><li><a href=\"https://github.com/Renan0eng\" target=\"_blank\">GitHub</a></li><li><a href=\"https://www.instagram.com/renan_nardii/\"target=\"_blank\">Intagran</a></li></ul></div>");                     //<------ALTERADO    
-
+                        client.println("<div id=\"foto\"><figure><img src=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/Renan.jpeg\"><figcaption><h1>Renan Nardi</h1></figcaption></figure><ul><li>(44)  991571020</li><li><a href=\"https://github.com/Renan0eng\" target=\"_blank\">GitHub</a></li><li><a href=\"https://www.instagram.com/renan_nardii/\"target=\"_blank\">Intagran</a></li></ul></div>");           
                         client.println("<div id=\"DD\">");                
-                        client.println("<h1>PORTAS EM FUN&Ccedil;&Atilde;O ANAL&Oacute;GICA</h1>");
-
-                        for (int nL=0; nL < qtdePinosAnalogicos; nL++) {
-
-                            client.print("<div id=\"pino");                        
-                            client.print("Temperatura");
-                            client.print("\">"); 
-                                                         
-                            client.print("Porta ");
-
-                            client.print("Temperatura");
-                            client.println(" - Valor: C ");
-                               
-                            client.print(tempC);
-                            client.println("</div>");                                                           
-                        }
-                        
-                                                
+                        client.println("<h1>TEMPERATURA</h1>");
+                        client.print("<div id=\"pino");                        
+                        client.print("Temperatura");
+                        client.print("\">");                          
+                        client.print("Porta ");
+                        client.print("Temperatura");
+                        client.println(" - Valor: C ");
+                        client.print(tempC);
+                        client.println("</div>");                                                             
                         client.println("<h1>PORTAS EM FUN&Ccedil;&Atilde;O DIGITAL</h1>");
                         client.println("<form method=\"get\">");
 
@@ -254,13 +238,11 @@ void loop()
                             processaPorta(pinosDigitais[nL], nL, client);
                             client.println("<br/>");
                         }
-                        
                         client.println("<br/>");
                         client.println("<button type=\"submit\">Envia para o ESP8266</button>");
                         client.println("</form>");                      
                         client.println("</div>");
                         client.println("</body>");
-                        
                         client.println("</html>");
 
                     
@@ -278,8 +260,6 @@ void loop()
                         client.print("#");
                         client.print(tempC);
                         client.println("|");
-                        
-                        
 
                         for (int nL=0; nL < qtdePinosDigitais; nL++) {
                             lePortaDigital(pinosDigitais[nL], nL, client);
