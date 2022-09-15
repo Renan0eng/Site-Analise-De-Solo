@@ -13,6 +13,7 @@ body {
     text-decoration: none;
 }
 #DD{
+    
     background-color: #49001e;
     padding: 20px;
 	border-radius: 10px;
@@ -80,6 +81,7 @@ label img{
     display:none ;
 }
 nav{
+    border-bottom:10px solid #2d2d2d;
     height: 100%;
     border-left: 70px solid #2d2d2d;
     box-shadow: 10px 0 0 #ff5c29;
@@ -87,7 +89,7 @@ nav{
     display: block;
     background-color: #2d2d2dee;
     width: 300px;
-    height: 100%;
+    height: 10  0%;
     left: -380px;
     transition: 0.5s;
     position: absolute;
@@ -148,17 +150,17 @@ label{
     z-index: 1;
 }
 footer{
+    
     display: flex;
     bottom: 0px;
     z-index: -1;
     width: 100%;
-    height: 20%;
     left: -10px;
     border-left: 40px solid #2d2d2d;
     position: absolute; 
     text-align: center;
     background-color: #2d2d2d;
-    bottom: 0px;
+    bottom: -10px;
 }
 footer div{
     align-self: center;
