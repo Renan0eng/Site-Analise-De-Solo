@@ -1,9 +1,6 @@
-*{
-    padding: 0px;
-    border: 0px;
-    text-decoration: none;
-}
+
 body {
+    height: 100%;
     padding: 0px;
     border: 0px;
     background-color: wheat;
@@ -83,7 +80,7 @@ label img{
 nav{
     border-bottom:10px solid #2d2d2d;
     height: 100%;
-    border-left: 70px solid #2d2d2d;
+    border-left: 70px solid #49001e;
     box-shadow: 10px 0 0 #ff5c29;
     top: -10px;
     display: block;
@@ -143,6 +140,7 @@ nav a {
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
     background-color: #ff5c29;
+    background-image: radial-gradient(to right,#49001e,#ff5c29);
     color: black;
 }
 label{
@@ -150,17 +148,21 @@ label{
     z-index: 1;
 }
 footer{
-    
     display: flex;
     bottom: 0px;
     z-index: -1;
     width: 100%;
+    right: 0px;
     left: -10px;
     border-left: 40px solid #2d2d2d;
     position: absolute; 
     text-align: center;
     background-color: #2d2d2d;
     bottom: -10px;
+    
+}
+footer .phone{
+    background-color: blue;
 }
 footer div{
     align-self: center;

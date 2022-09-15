@@ -219,7 +219,8 @@ void loop()
                         client.println("}");
                         client.println("</script>");
                         client.println("</head>");
-                        client.println("<body onload=\"LeDadosDoArduino()\">"); 
+                        client.println("<body onload=\"LeDadosDoArduino()\">");
+                        client.println("<div id=\"DNav\"><input type=\"checkbox\"  id=\"chec\"><label for=\"chec\"><img src=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/lista.png\"></label><nav><div id=\"Icon\"><span><img src=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/casa.png\"></span><span><img src=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/instagram.png\"></span><span><img src=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/floco-de-neve.png\"></span><span><img src=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/floco-de-neve.png\"></span></div><ul id=\"UlNav\"><li id=\"Home\"><a href=\"\">Home</a></li><li id=\"Instagran\"><a href=\"https://www.instagram.com/renan_nardii/\" target=\"_blank\">Criador</a></li><li id=\"Fria\"><a href=\"\">Camara Fria</a></li><li id=\"Fria\"><a href=\"\">Tunel de congelamento</a></li></ul></nav></div>");
                         client.println("<div id=\"foto\"><figure><img src=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/Renan.jpeg\"><figcaption><h1>Renan Nardi</h1></figcaption></figure><ul><li>(44)  991571020</li><li><a href=\"https://github.com/Renan0eng\" target=\"_blank\">GitHub</a></li><li><a href=\"https://www.instagram.com/renan_nardii/\"target=\"_blank\">Intagran</a></li></ul></div>");           
                         client.println("<div id=\"DD\">");                
                         client.println("<h1>TEMPERATURA</h1>");
