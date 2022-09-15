@@ -110,8 +110,8 @@ nav a {
     position: absolute;
 }
 #UlNav li:hover, #UlNav a:hover{
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
     background-color: blueviolet;
     color: black;
 }
