@@ -80,13 +80,14 @@ label img{
     display:none ;
 }
 nav{
+    height: 100%;
     border-left: 70px solid #2d2d2d;
-    box-shadow: 10px 0 0 blueviolet;
+    box-shadow: 10px 0 0 #ff5c29;
     top: -10px;
     display: block;
     background-color: #2d2d2dee;
     width: 300px;
-    height: 130%;
+    height: 100%;
     left: -380px;
     transition: 0.5s;
     position: absolute;
@@ -124,6 +125,7 @@ nav ul{
     height: 30px;
 }
 nav a {
+    color: #ff5c29;
     background-color: #2d2d2d;
     display: block;
     padding: 20px 5px;
@@ -138,13 +140,27 @@ nav a {
 #UlNav li:hover, #UlNav a:hover{
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
-    background-color: blueviolet;
+    background-color: #ff5c29;
     color: black;
 }
 label{
     position: absolute;
     z-index: 1;
 }
-#FriaIcon{
-    
+footer{
+    display: flex;
+    bottom: 0px;
+    z-index: -1;
+    width: 100%;
+    height: 20%;
+    left: -10px;
+    border-left: 40px solid #2d2d2d;
+    position: absolute; 
+    text-align: center;
+    background-color: #2d2d2d;
+    bottom: 0px;
+}
+footer div{
+    align-self: center;
+    width: 80%;
 }
