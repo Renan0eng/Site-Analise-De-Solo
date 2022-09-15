@@ -71,6 +71,7 @@ button {
     border-radius: 10px;
 }
 label img{
+    padding-top: 10px;
     padding-left: 10px;
     width: 30px;
     height: 30px;
@@ -79,23 +80,48 @@ label img{
     display:none ;
 }
 nav{
+    border-left: 70px solid #2d2d2d;
     box-shadow: 10px 0 0 blueviolet;
     top: -10px;
     display: block;
     background-color: #2d2d2dee;
     width: 300px;
     height: 130%;
-    left: -310px;
+    left: -380px;
+    transition: 0.5s;
     position: absolute;
 }
+
 #chec:checked ~ nav{
-    transform: translateX(300px);
+    transform: translateX(370px);
     transition: 0.5s;
 }
 nav ul{
+    list-style: none;
     text-align: start;
     padding-top: 60px;
     margin: 0px;
+}
+
+#Icon{
+    
+    padding-top: 65px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 20px;
+    position: absolute;
+    left: -63px;
+    
+}
+#Icon span{
+    width: 55px;
+    height: 55px;
+    padding-top: 5px;
+    
+}
+#Icon img{
+    width: 30px;
+    height: 30px;
 }
 nav a {
     background-color: #2d2d2d;
@@ -118,4 +144,7 @@ nav a {
 label{
     position: absolute;
     z-index: 1;
+}
+#FriaIcon{
+    
 }
