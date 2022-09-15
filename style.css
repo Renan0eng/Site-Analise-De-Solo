@@ -1,6 +1,7 @@
 *{
     padding: 0px;
     border: 0px;
+    text-decoration: none;
 }
 body {
     padding: 0px;
@@ -56,19 +57,21 @@ body {
     padding-top: 10px;
     padding-left: 30px;
 }
-a{
+#foto a{
     color: #ff5c29;
     text-decoration: none;
 }
-li:hover,a:hover{
+#foto li:hover,#foto a:hover{
     color: wheat;
 }
 button {
+    padding: 10px;
     background-color: antiquewhite;
     height: 50px;
     border-radius: 10px;
 }
 label img{
+    padding-left: 10px;
     width: 30px;
     height: 30px;
 }
@@ -76,24 +79,26 @@ label img{
     display:none ;
 }
 nav{
+    box-shadow: 10px 0 0 blueviolet;
+    top: -10px;
     display: block;
-    padding-left: 0px;
-    background-color: #49001e77;
+    background-color: #2d2d2dee;
     width: 300px;
-    height: 100%;
-    left: -350px;
+    height: 130%;
+    left: -310px;
     position: absolute;
 }
 #chec:checked ~ nav{
-    transform: translateX(350px);
+    transform: translateX(300px);
+    transition: 0.5s;
 }
 nav ul{
     text-align: start;
-    padding-top: 40px;
+    padding-top: 60px;
     margin: 0px;
 }
 nav a {
-    background-color: rgb(131, 97, 12);
+    background-color: #2d2d2d;
     display: block;
     padding: 20px 5px;
 }
@@ -104,8 +109,13 @@ nav a {
     height: 100%;
     position: absolute;
 }
+#UlNav li:hover, #UlNav a:hover{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: blueviolet;
+    color: black;
+}
 label{
-    background-color: black;
     position: absolute;
     z-index: 1;
 }
