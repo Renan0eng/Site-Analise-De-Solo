@@ -3,6 +3,7 @@ body {
     height: 100%;
     padding: 0px;
     border: 0px;
+    margin: 0px;
     background-color: wheat;
     color:#ff5c29;
     text-align: center;
@@ -82,7 +83,6 @@ nav{
     height: 100%;
     border-left: 70px solid #49001e;
     box-shadow: 10px 0 0 #ff5c29;
-    top: -10px;
     display: block;
     background-color: #2d2d2dee;
     width: 300px;
@@ -97,6 +97,7 @@ nav{
     transition: 0.5s;
 }
 nav ul{
+    padding: 0px;
     list-style: none;
     text-align: start;
     padding-top: 60px;
@@ -124,6 +125,7 @@ nav ul{
     height: 30px;
 }
 nav a {
+    text-decoration: none;
     color: #ff5c29;
     background-color: #2d2d2d;
     display: block;
