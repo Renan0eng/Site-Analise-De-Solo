@@ -7,7 +7,8 @@
     <link rel="shortcut icon" href="https://renan0eng.github.io/Site-Analise-De-Solo/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <title>Site-Analise-De-Solo</title>
-    <link rel="script" href="script.js">
+    <script src="script.js"></script>
+    
 </head>
 <body onload="LeDadosDoArduino()">
     <div id="DNav">
@@ -21,12 +22,14 @@
                 <span><img src="img/instagram.png" alt=""></span>
                 <span><img src="img/floco-de-neve.png" alt=""></span>
                 <span><img src="img/floco-de-neve.png" alt=""></span>
+                <span><img src="img/olho.png" alt=""></span>
             </div>
             <ul id="UlNav">
                 <li id="Home"><a href="">Home</a></li>
                 <li id="Instagran"><a href="https://www.instagram.com/renan_nardii/" target="_blank">Criador</a></li>
-                <li id="Fria"><a href="">Camara Fria</a></li>
+                <li id="Fria"><a onclick="CamaraFria()">Camara Fria</a></li>
                 <li id="Fria"><a href="">Tunel de congelamento</a></li>
+                <li><a href="">Visao Gera</a></li>
             </ul>
         </nav>
     </div>
@@ -43,16 +46,16 @@
         </ul>
     </div>
     <div id="DD"> 
-        <h1>Temperatura:</h1>
+        <h1 id="Titulo">Temperatura:</h1>
         <div id="pino25.13">
             Porta Temperatura - Valor:
             25.13
         </div>
-        <h1>PORTAS EM FUNÇÃO DIGITAL</h1>
+        <h1>COMTROLE</h1>
         <form method="get">
             <input type="checkbox" name="P2" value="2" id="pino2">Porta 2
             <br>
-            <input type="checkbox" name="P4" value="4" id="pino4">Porta 4
+            <input type="checkbox" name="P4" value="4" id="pino4">DISPLAY
             <br>
             <br>
             <button type="submit">Envia para o ESP8266</button>
