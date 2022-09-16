@@ -224,21 +224,20 @@ void loop()
                         client.println("<div id=\"foto\"><figure><img src=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/Renan.jpeg\"><figcaption><h1>Renan Nardi</h1></figcaption></figure><ul><li>(44)  991571020</li><li><a href=\"https://github.com/Renan0eng\" target=\"_blank\">GitHub</a></li><li><a href=\"https://www.instagram.com/renan_nardii/\"target=\"_blank\">Intagran</a></li></ul></div>");           
                         client.println("<div id=\"DD\">");                
                         client.println("<h1>TEMPERATURA</h1>");
-                        client.print("<div id=\"pino");                        
+                        client.print("<div id=\"");                        
                         client.print("Temperatura");
                         client.print("\">");                          
-                        client.print("Porta ");
                         client.print("Temperatura");
-                        client.println(" - Valor: C ");
+                        client.println(": C ");
                         client.print(tempC);
                         client.println("</div>");                                                             
                         client.println("<h1>PORTAS EM FUN&Ccedil;&Atilde;O DIGITAL</h1>");
                         client.println("<form method=\"get\">");
 
-                        for (int nL=0; nL < qtdePinosDigitais; nL++) {
-                            processaPorta(pinosDigitais[nL], nL, client);
+                  //      for (int nL=0; nL < qtdePinosDigitais; nL++) {
+                            processaPorta(pinosDigitais[1], 1, client);
                             client.println("<br/>");
-                        }
+         //               }
                         client.println("<br/>");
                         client.println("<button type=\"submit\">Envia para o ESP8266</button>");
                         client.println("</form>");                      
