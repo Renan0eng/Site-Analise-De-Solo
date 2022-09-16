@@ -87,13 +87,13 @@ nav{
     background-color: #2d2d2dee;
     width: 300px;
     height: 10  0%;
-    left: -380px;
+    left: -370px;
     transition: 0.5s;
     position: absolute;
 }
 
 #chec:checked ~ nav{
-    transform: translateX(370px);
+    transform: translateX(360px);
     transition: 0.5s;
 }
 nav ul{
