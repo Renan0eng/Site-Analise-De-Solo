@@ -1,4 +1,4 @@
-#include <Adafruit_GFX.h>    
+ #include <Adafruit_GFX.h>    
 #include <Adafruit_ST7735.h> 
 #include <SPI.h>
 
@@ -29,8 +29,8 @@ float tempMax = 0;     //armazena temperatura máxima
 void mostra_endereco_sensor(DeviceAddress deviceAddress);  //Função para mostrar endereço do sensor
 
 
-const char* ssid = "POCO";
-const char* password = "12345678";
+const char* ssid = "Fripeixes_INT";
+const char* password = "fripeixes123";
 
 WiFiServer server(80); //Shield irá receber as requisições das páginas (o padrão WEB é a porta 80)
 
@@ -167,7 +167,7 @@ void loop()
                         client.println("<!DOCTYPE html>");
                         client.println("<html>");
                         client.println("<head>");
-                        client.println("<meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Exercicio HTML</title>");
+                        client.println("<meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Com</title>");
                         client.println("<link rel=\"stylesheet\" href=\"https://renan0eng.github.io/Site-Analise-De-Solo/style.css\">");
                         client.println("<link rel=\"shortcut icon\" href=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/favicon.ico\" type=\"image/x-icon\">"); 
                         
@@ -207,8 +207,8 @@ void loop()
                             client.print("document.getElementById(\"pino");
                             client.print("Temperatura");
                             client.print("\").innerHTML = \"Porta ");
-                            client.print("Temperatura");
-                            client.print(" - Valor: C  \" + this.responseText.substring(valPosIni, valPosFim);");
+                            client.print("Camara Fria");
+                            client.print(": &#8451;  \" + this.responseText.substring(valPosIni, valPosFim);");
                             client.println("}");
                         }
                           
@@ -224,14 +224,15 @@ void loop()
                         client.println("<div id=\"foto\"><figure><img src=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/Renan.jpeg\"><figcaption><h1>Renan Nardi</h1></figcaption></figure><ul><li>(44)  991571020</li><li><a href=\"https://github.com/Renan0eng\" target=\"_blank\">GitHub</a></li><li><a href=\"https://www.instagram.com/renan_nardii/\"target=\"_blank\">Intagran</a></li></ul></div>");           
                         client.println("<div id=\"DD\">");                
                         client.println("<h1>TEMPERATURA</h1>");
-                        client.print("<div id=\"");                        
+                        client.print("<div id=\"pino");                    
                         client.print("Temperatura");
-                        client.print("\">");                          
-                        client.print("Temperatura");
-                        client.println(": C ");
+                        client.print("\">");     
+                        client.print("Porta ");                     
+                        client.print("Camara Fria");
+                        client.println(": &#8451; ");
                         client.print(tempC);
                         client.println("</div>");                                                             
-                        client.println("<h1>PORTAS EM FUN&Ccedil;&Atilde;O DIGITAL</h1>");
+                        client.println("<h1>Display TFT</h1>");
                         client.println("<form method=\"get\">");
 
                   //      for (int nL=0; nL < qtdePinosDigitais; nL++) {
