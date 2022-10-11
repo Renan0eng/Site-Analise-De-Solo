@@ -14,10 +14,10 @@ void IRAM_ATTR resetModule(){
     esp_restart(); //reinicia o chip
 }
 
-#define TFT_DC 12 //A0
+#define TFT_DC 9 //A0
 #define TFT_CS 13 //CS
-#define TFT_MOSI 14 //SDA
-#define TFT_CLK 15 //SCK
+#define TFT_MOSI 10 //SDA
+#define TFT_CLK 11 //SCK
 #define TFT_RST 0  
 #define TFT_MISO 0 
 
