@@ -141,7 +141,7 @@ void loop()
   tempC = sensors.getTempC(sensor1);
   Serial.print("3");
 
-  Dispaly(tempC);
+  Dispaly();
   
     if (client) { 
         boolean currentLineIsBlank = true;

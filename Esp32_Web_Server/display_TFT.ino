@@ -1,4 +1,4 @@
-void Dispaly (tempC) {
+void Dispaly () {
   if(digitalRead(4) == LOW){
    tft.setTextSize(1);
    tft.setCursor(12, 70);
@@ -23,3 +23,4 @@ void Dispaly (tempC) {
   tft.print("C:");
   tft.print(tempC);
   }
+}
