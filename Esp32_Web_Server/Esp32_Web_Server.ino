@@ -14,10 +14,10 @@ void IRAM_ATTR resetModule(){
     esp_restart(); //reinicia o chip
 }
 
-#define TFT_DC 9 //A0
+#define TFT_DC 12 //A0
 #define TFT_CS 13 //CS
-#define TFT_MOSI 10 //SDA
-#define TFT_CLK 11 //SCK
+#define TFT_MOSI 14 //SDA
+#define TFT_CLK 15 //SCK
 #define TFT_RST 0  
 #define TFT_MISO 0 
 
@@ -26,7 +26,7 @@ Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_MOSI, TFT_CLK, TFT_RST
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-#define    ONE_WIRE_BUS     5
+#define    ONE_WIRE_BUS     0
 
 OneWire oneWire(ONE_WIRE_BUS);        
 DallasTemperature sensors(&oneWire);
@@ -128,21 +128,22 @@ void setup()
    delay(5000);
    tft.fillScreen(0x408E2F);
    Serial.print("0");
+   xTaskCreatePinnedToCore(
+        Dispaly,   //Função que será executada
+        "Dispaly", //Nome da tarefa
+        10000,      //Tamanho da pilha
+        NULL,       //Parâmetro da tarefa (no caso não usamos)
+        2,          //Prioridade da tarefa
+        NULL,       //Caso queria manter uma referência para a tarefa que vai ser criada (no caso não precisamos)
+        0);         //Número do core que será executada a tarefa (usamos o core 0 para o loop ficar livre com o core 1)
+
 }
 
 void loop()
 {
   timerWrite(timer, 0); //reseta o temporizador (alimenta o watchdog) 
   long tme = millis();
-  Serial.print("1");
   WiFiClient  client = server.available();
-  Serial.print("2");
-  sensors.requestTemperatures();
-  tempC = sensors.getTempC(sensor1);
-  Serial.print("3");
-
-  Dispaly();
-  
     if (client) { 
         boolean currentLineIsBlank = true;
         while (client.connected()) {
@@ -170,6 +171,7 @@ void loop()
                         client.println("<link rel=\"shortcut icon\" href=\"https://renan0eng.github.io/Site-Analise-De-Solo/img/favicon.ico\" type=\"image/x-icon\">"); 
                         
                         client.println("<script>");
+                        client.println("function Reload(){location.reload()}");
                         client.println("function LeDadosDoArduino() {");
                         client.println("nocache = \"&nocache=\" + Math.random() * 1000000;");
                         client.println("var request = new XMLHttpRequest();");
@@ -233,12 +235,12 @@ void loop()
                         client.println("<h1>Display TFT</h1>");
                         client.println("<form method=\"get\">");
 
-                  //      for (int nL=0; nL < qtdePinosDigitais; nL++) {
-                            processaPorta(pinosDigitais[1], 1, client);
+                        for (int nL=0; nL < qtdePinosDigitais; nL++) {
+                            processaPorta(pinosDigitais[nL], nL, client);
                             client.println("<br/>");
-         //               }
+                        }
                         client.println("<br/>");
-                        client.println("<button type=\"submit\">Envia para o ESP8266</button>");
+//                        client.println("<button type=\"submit\">Envia para o ESP8266</button>");
                         client.println("</form>");                      
                         client.println("</div>");
                         client.println("</body>");
@@ -257,8 +259,7 @@ void loop()
                         client.print("PA");
                         client.print("Temperatura");
                         client.print("#");
-                        tme = millis() - tme;
-                        client.print(tme);
+                        client.print(tempC);
                         client.println("|");
 
                         for (int nL=0; nL < qtdePinosDigitais; nL++) {
@@ -314,7 +315,7 @@ String cHTML;
         LED_status = digitalRead(porta);
     }
         
-    cl.print("<input type=\"checkbox\" name=\"P");
+    cl.print("<input onclick=\"submit();\" type=\"checkbox\" name=\"P");
     cl.print(porta);
     cl.print("\" value=\"");
     cl.print(porta);
@@ -341,7 +342,7 @@ String cHTML;
 
 void lePortaDigital(byte porta, byte posicao, WiFiClient cl)
 {
-    if (modoPinos[posicao] != OUTPUT) { 
+    if (true) { 
        cl.print("PD");
        cl.print(porta);
        cl.print("#");

@@ -14,3 +14,6 @@ function TunelDeCongelamento(){
 function Atl(){
 
 }
+function Reload(){
+    location.reload()
+}
