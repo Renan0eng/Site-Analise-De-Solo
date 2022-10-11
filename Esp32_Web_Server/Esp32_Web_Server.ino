@@ -34,6 +34,7 @@ DeviceAddress sensor1;
 
 float tempMin = 999;   //armazena temperatura mínima
 float tempMax = 0;     //armazena temperatura máxima
+float tempC = 0;
 
 void mostra_endereco_sensor(DeviceAddress deviceAddress);  //Função para mostrar endereço do sensor
 
@@ -137,10 +138,10 @@ void loop()
   WiFiClient  client = server.available();
   Serial.print("2");
   sensors.requestTemperatures();
-  float tempC = sensors.getTempC(sensor1);
+  tempC = sensors.getTempC(sensor1);
   Serial.print("3");
 
-  Dispaly();
+  Dispaly(tempC);
   
     if (client) { 
         boolean currentLineIsBlank = true;
