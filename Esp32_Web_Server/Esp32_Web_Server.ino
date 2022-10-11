@@ -1,8 +1,18 @@
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <WebServer.h>
+#include <ESPmDNS.h>
+
  #include <Adafruit_GFX.h>    
 #include <Adafruit_ST7735.h> 
 #include <SPI.h>
 
+hw_timer_t *timer = NULL; //faz o controle do temporizador (interrupção por tempo)
 
+void IRAM_ATTR resetModule(){
+    ets_printf("(watchdog) reiniciar\n"); //imprime no log
+    esp_restart(); //reinicia o chip
+}
 
 #define TFT_DC 12 //A0
 #define TFT_CS 13 //CS
@@ -13,7 +23,6 @@
 
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_MOSI, TFT_CLK, TFT_RST);
 
-#include <ESP8266WiFi.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
@@ -54,6 +63,14 @@ void setup()
 {         
 
     Serial.begin(115200);
+
+    timer = timerBegin(0, 80, true); //timerID 0, div 80
+    //timer, callback, interrupção de borda
+    timerAttachInterrupt(timer, &resetModule, true);
+    //timer, tempo (us), repetição
+    timerAlarmWrite(timer, 10000000, true);
+    timerAlarmEnable(timer); //habilita a interrupção 
+
 
     sensors.begin();
 
@@ -114,39 +131,17 @@ void setup()
 
 void loop()
 {
+  timerWrite(timer, 0); //reseta o temporizador (alimenta o watchdog) 
+  long tme = millis();
   Serial.print("1");
   WiFiClient  client = server.available();
   Serial.print("2");
   sensors.requestTemperatures();
   float tempC = sensors.getTempC(sensor1);
   Serial.print("3");
- if(digitalRead(4) == LOW){
-   tft.setTextSize(1);
-   tft.setCursor(12, 70);
-   tft.print("IP: ");
-   tft.println(WiFi.localIP());
-   tft.fillScreen(0x408E2F);
-   Serial.print("4");
-   
- }else if(digitalRead(4) == HIGH){
-  Serial.print("5");
-  tft.setTextSize(3);
-  tft.setCursor(30, 10);
-  tft.println("TEMP");
- 
-  tft.setTextSize(1);
-  tft.setCursor(12, 70);
-  tft.println("-- Temperatura --");
-  tft.setTextSize(2);
-  tft.setCursor(20, 120);
 
-  tft.fillRect(42,120, 100 ,20,0x408E2F);
-  tft.print("C:");
-  tft.print(tempC);
-  }
-
- 
-
+  Dispaly();
+  
     if (client) { 
         boolean currentLineIsBlank = true;
         while (client.connected()) {
@@ -261,7 +256,8 @@ void loop()
                         client.print("PA");
                         client.print("Temperatura");
                         client.print("#");
-                        client.print(tempC);
+                        tme = millis() - tme;
+                        client.print(tme);
                         client.println("|");
 
                         for (int nL=0; nL < qtdePinosDigitais; nL++) {
@@ -288,6 +284,9 @@ void loop()
         delay(1);     
         client.stop(); 
     } 
+    Serial.print("tempo passado dentro do loop (ms) = ");
+    tme = millis() - tme; //calcula o tempo (atual - inicial)
+    Serial.println(tme);
 }
 
 

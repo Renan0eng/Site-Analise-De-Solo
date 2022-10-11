@@ -152,12 +152,12 @@ nav a {
     background-image: radial-gradient(to right,#49001e,#ff5c29);
     color: black;
 }
-#UlNav li:hover , #UlNav a:hover{
+#UlNav a:hover{
+    color: black;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
     background-color: #ff5c29;
-    background-image: radial-gradient(to right,#49001e,#ff5c29);
-    color: black;
+    background-image: radial-gradient(to left,#49001e,#ff5c29);
 }
 label{
     position: absolute;
